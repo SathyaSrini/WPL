@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
 	$username = mysqli_real_escape_string($con, $_POST['username']);
 	$password = mysqli_real_escape_string($con, $_POST['password']);
 	$result = mysqli_query($con, "SELECT username,password FROM login WHERE username = '" .$username. "' and password = '" . md5($password) . "'");
-
+		
 	if ($row = mysqli_fetch_array($result)) 
 	{
 		$email = $row['username'];

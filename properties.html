@@ -1,6 +1,27 @@
 <?php
 session_start();
 include_once 'dbconnect.php';
+$host="localhost:8889";
+$username="root";
+$password="root";
+$dbname="realtor";
+$db = new PDO("mysql:dbname=$dbname;host=$host", $username, $password);
+
+$user_id = $_SESSION['usr_id'];
+
+if(isset($_SESSION['usr_id']))
+{
+
+$stmt = $db->prepare("SELECT isadmin FROM userinfo WHERE userid = (:userid)");
+$stmt->bindParam(':userid', $user_id);
+$stmt->execute();
+while($row=$stmt->fetch())
+{
+    $isadmin = $row['isadmin'];
+    $_SESSION['isadmin'] = $isadmin;
+}
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,10 +32,12 @@ include_once 'dbconnect.php';
   <meta name="description" content="WPL-Assignment 1">
   <meta name="keywords" content="Realtor,Homes,Sale,Rent">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
   <link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
   <link rel="stylesheet" type="text/css" href="css\ass1.css">
+  <script src="scripts\properties.js"></script>
+  <script src="scripts\jquery.easyPaginate.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -46,24 +69,17 @@ include_once 'dbconnect.php';
   </div>
 </nav>
 <div class="container-fluid text-center">
-  <div class="row content">  
+  <div class="row content">    
     <div class="col-sm-2 sidenav" id="leftBar">   
     <div class="well-searchbox">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Keyword</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Keyword">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
+    <form id ="search" class="form-horizontal" role="form" onsubmit="return false;">  
+                  <div class="form-group">
                         <label class="col-md-4 control-label">House Type</label>
                         <div class="col-md-8">
-                            <select class="form-control" placeholder="Any">
-                                <option value="">Any</option>
-                                <option value="">Apartment</option>
-                                <option value="">Villa</option>                                
+                            <select id="aptType" class="form-control" placeholder="Any" name ="aptType">
+                                <option value="9">Any</option>
+                                <option value="1">Apartment</option>
+                                <option value="0">Villa</option>                                
                             </select>
                         </div>
                     </div>
@@ -71,11 +87,11 @@ include_once 'dbconnect.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Beds</label>
                         <div class="col-md-8">
-                            <select class="form-control" placeholder="Any">
-                                <option value="">Any</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3+</option>
+                            <select id="beds" class="form-control" placeholder="Any" name ="beds">
+                                <option value="9">Any</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                         </div>
                     </div>
@@ -83,50 +99,47 @@ include_once 'dbconnect.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Baths</label>
                         <div class="col-md-8">
-                            <select class="form-control" placeholder="Any">
-                                <option value="">Any</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3+</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Price</label>
-                        <div class="col-md-8">
-                            <select class="form-control" placeholder="Price">
-                                <option value="">Any</option>
-                                <option value="">$100k+</option>
-                                <option value="">$200k+</option>
+                            <select id="baths" class="form-control" placeholder="Any" name ="baths">
+                                <option value="9">Any</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">City</label>
                         <div class="col-md-8">
-                           <input class="form-control" placeholder="City" type ="text">
+                           <input class="form-control" placeholder="Any" type ="text" name = "city" id="city">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">State</label>
                         <div class="col-md-8">
-                           <input class="form-control" placeholder="State" type ="text">
+                           <input class="form-control" placeholder="State" type ="text" name ="state" id="state">
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="col-sm-offset-4 col-sm-5">
-                        <button type="submit" class="btn btn-success">Search</button>
+                       <!-- <button id = "search" type="submit" class="btn-success">Search</button>-->
                     </div>
-                </form>
-            </div>      
+                </form>                
+    </div>      
     </div>
-    <div class="col-sm-12 text-left" id="propList">
-    </div>   
+    <div class="col-sm-10 text-left">
+    <div class="wpl" id="wpl"></div>
+    </div>  
   </div>
 </div>
+<script type="text/javascript">
+    $('#wpl').easyPaginate({
+    paginateElement: 'thumbnail',
+    elementsPerPage: 1,
+    effect: 'climb'
+    });
+</script>
 <footer class="container-fluid text-center">
-  <p>Copyright &copy;Realtor.com. All rights reserved.</p>
+<input type="hidden" id="hdnSession" value="<?php echo $_SESSION['isadmin']; ?>"/>
+<p>Copyright &copy;Realtor.com. All rights reserved.</p>
 </footer>
 </body>
 </html>
