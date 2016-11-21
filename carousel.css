@@ -1,6 +1,6 @@
-
-
-    *{
+	
+	
+	*{
       font-family: sans-serif;
     }
 
@@ -46,7 +46,7 @@
     }
 	
 	.carousel-inner > .item > img{
-       width:1280px;
+       width:1200px;
        height:480px;
      }
 
@@ -57,7 +57,7 @@
 
     #leftBar{
       background-color: darkred; 
-      height: 110%;
+      height: 120%;
 
     }
 
@@ -65,5 +65,22 @@
       color: black;
     }
 
-    
-   
+
+	/*CSS for admin page*/
+	td { 
+		padding: 5px;
+		font-weight: bold
+	}
+	
+	#login_container
+	{
+		position:absolute;
+		top:10px;
+		left:30px;
+	}
+	#login_form
+	{
+		display:none;
+		background:#FFFFFF;
+	}
+	
