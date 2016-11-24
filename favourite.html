@@ -1,0 +1,140 @@
+<?php
+session_start();
+include_once 'dbconnect.php';
+$host="localhost:8889";
+$username="root";
+$password="root";
+$dbname="realtor";
+$db = new PDO("mysql:dbname=$dbname;host=$host", $username, $password);
+
+$user_id = $_SESSION['usr_id'];
+
+if(isset($_SESSION['usr_id']))
+{
+
+$stmt = $db->prepare("SELECT isadmin FROM userinfo WHERE userid = (:userid)");
+$stmt->bindParam(':userid', $user_id);
+$stmt->execute();
+while($row=$stmt->fetch())
+{
+    $isadmin = $row['isadmin'];
+    $_SESSION['isadmin'] = $isadmin;
+}
+
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Realtor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WPL-Assignment 1">
+  <meta name="keywords" content="Realtor,Homes,Sale,Rent">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  <link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
+  <link rel="stylesheet" type="text/css" href="css\ass1.css">
+  <script src="scripts\favourite.js"></script>
+
+  <script src="paginate\jquery.quick.pagination.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="paginate\styles.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>    
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="properties.html">Properties</a></li>
+        <li><a href="mortgage.html">Mortgage</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+       <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>
+        <li><a id="logout" href="logout.php">Log Out</a></li>
+        <?php } else { ?>
+        <?php } ?>
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login/Signup</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid text-center">
+  <div class="row content">    
+    <div class="col-sm-2 sidenav" id="leftBar">   
+    <div class="well-searchbox">
+    <form id ="search" class="form-horizontal" role="form" onsubmit="return false;">  
+                  <div class="form-group">
+                        <label class="col-md-4 control-label">House Type</label>
+                        <div class="col-md-8">
+                            <select id="aptType" class="form-control" placeholder="Any" name ="aptType">
+                                <option value="9">Any</option>
+                                <option value="1">Apartment</option>
+                                <option value="0">Villa</option>                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Beds</label>
+                        <div class="col-md-8">
+                            <select id="beds" class="form-control" placeholder="Any" name ="beds">
+                                <option value="9">Any</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Baths</label>
+                        <div class="col-md-8">
+                            <select id="baths" class="form-control" placeholder="Any" name ="baths">
+                                <option value="9">Any</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">City</label>
+                        <div class="col-md-8">
+                           <input class="form-control" placeholder="Any" type ="text" name = "city" id="city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">State</label>
+                        <div class="col-md-8">
+                           <input class="form-control" placeholder="State" type ="text" name ="state" id="state">
+                        </div>
+                    </div>                    
+                    <div class="col-sm-offset-4 col-sm-5">
+                       <!-- <button id = "search" type="submit" class="btn-success">Search</button>-->
+                    </div>
+                </form>                
+    </div>      
+    </div>
+    <div class="col-sm-10 text-left">
+    <ul class="pagination3" id="wpl"></ul>
+    </div>  
+  </div>
+</div>
+<footer class="container-fluid text-center">
+<input type="hidden" id="hdnSession" value="<?php echo $_SESSION['isadmin']; ?>"/>
+<p>Copyright &copy;Realtor.com. All rights reserved.</p>
+</footer>
+</body>
+</html>
