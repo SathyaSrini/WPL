@@ -35,13 +35,15 @@ include_once 'dbconnect.php';
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-       <li><a href="favourite.php"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
+        <li><a href="favourite.php"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <?php } else { ?>
+        <?php } ?>
        <?php if (isset($_SESSION['usr_id'])) { ?>
         <li><a href="logout.php">Log Out</a></li>
         <?php } else { ?>
-        <li></li>
-        <?php } ?>
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login/Signup</a></li>
+        <?php } ?>
       </ul>
     </div>
   </div>

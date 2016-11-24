@@ -103,12 +103,36 @@ if (isset($_POST['signup']))
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SignUp</title>
+	<title>Realtor Signup</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" >
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<meta name="description" content="RealtorLogin">
+  	<meta name="keywords" content="Realtor,Homes,Sale,Rent">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  	<link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
 </head>
-
 <body>
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>    
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="properties.html">Properties</a></li>
+        <li><a href="mortgage.html">Mortgage</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>	
 <div class="container">
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4 well">
@@ -405,5 +429,8 @@ $('#cpassword').change(function() {
 
 });
 </script>
+<footer class="container-fluid text-center">
+  <p>Copyright &copy;Realtor.com. All rights reserved.</p>
+</footer>
 </body>
 </html>
