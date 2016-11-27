@@ -2,7 +2,7 @@
 $id = $_GET['id'];
 $operation = $_GET['operation'];
 
-$con = mysqli_connect("localhost","root","root","realtor","8889");
+$con = mysqli_connect("localhost","root","root","realtor","3306");
 if(mysqli_connect_errno()) {
 	echo "Error: Failed to connect to MySQL: " . mysqli_connect_error();
 }

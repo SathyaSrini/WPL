@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var operation = "";
-	$('#links a').click(function(){
+	$('#leftBar a').click(function(){
 		
 		/*if ($("#login_form").is(":hidden")){
               $("#login_form").slideDown("slow");

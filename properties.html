@@ -34,12 +34,11 @@ while($row=$stmt->fetch())
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  <link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
+  <link rel="icon" href="favreal.ico" type="image/x-icon">  
+  <script src="paginate\jquery.quick.pagination.min.js"></script>   
   <link rel="stylesheet" type="text/css" href="css\ass1.css">
-  <script src="scripts\properties.js"></script>
-
-  <script src="paginate\jquery.quick.pagination.min.js"></script>
   <link rel="stylesheet" type="text/css" href="paginate\styles.css">
+  <script src="scripts\properties.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -53,15 +52,18 @@ while($row=$stmt->fetch())
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="properties.html">Properties</a></li>
-        <li><a href="mortgage.html">Mortgage</a></li>
-        <li><a href="contact.html">Contact</a></li>
+      <li class="active"><a href="home.html">Home</a></li>      
+      <li><a href="properties.html">Properties</a></li>		
+	  <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['isadmin']) && $_SESSION['isadmin']==1) { ?>
+        <li><a href="property_edit.html">Admin</a></li>
+		<?php } else { ?>
+        <?php } ?>
+      <li><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
-        <li><a href="favourite.php"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>History</a></li>
         <?php } else { ?>
         <?php } ?>
        <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>

@@ -33,7 +33,7 @@ while($row=$stmt->fetch())
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  <link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
+  <link rel="icon" href="favreal.ico" type="image/x-icon">
   <link rel="stylesheet" type="text/css" href="css\carousel.css">
 </head>
 <body>
@@ -49,14 +49,14 @@ while($row=$stmt->fetch())
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="home.html">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="properties.html">Properties</a></li>
-        <li><a href="mortgage.html">Mortgage</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="properties.html">Properties</a></li>       
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
-        <li><a href="favourite.php"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+	  <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
+        <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>History</a></li>
         <?php } else { ?>
         <?php } ?>
        <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>

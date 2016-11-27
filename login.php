@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
   <meta name="keywords" content="Realtor,Homes,Sale,Rent">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  <link rel="shortcut icon" type='image/x-icon' href="favMalini.ico">
+  <link rel="icon" href="favreal.ico" type="image/x-icon">
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -54,11 +54,9 @@ if (isset($_POST['login'])) {
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="properties.html">Properties</a></li>
-        <li><a href="mortgage.html">Mortgage</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+         <li class="active"><a href="home.html">Home</a></li>      
+        <li><a href="properties.html">Properties</a></li>		
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </div>

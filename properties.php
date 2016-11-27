@@ -88,18 +88,14 @@ elseif($city!="")
     if($baths!=""&&$baths!=9)
     	$sqlQuery .= " AND bath = $baths";
     if($state!="")
-    	$sqlQuery .= " AND state = $state"; 
+    	$sqlQuery .= " AND state = $state";     
 
-    
     $result=$db->prepare($sqlQuery);
 	
 }
 else
 {
 }
-
-
-
 $result->execute();
 while($row=$result->fetch())
 {
@@ -107,6 +103,7 @@ while($row=$result->fetch())
   $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price']);
   $res_row[]=$res;
 }
+
 echo json_encode($res_row);
 
 ?>
