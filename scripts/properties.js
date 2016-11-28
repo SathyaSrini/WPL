@@ -3,9 +3,9 @@ $(document).ready(function(){
 var username = $('#hdnSession').val(); 
 
 $.ajax({url: "properties.php",success: function(ds){
-
+     
       var obj = jQuery.parseJSON( ds );
-	 
+	
       localStorage.setItem('Allitems', ds);
       for(var i=0 ; i < obj.length;i++)
       {
@@ -38,7 +38,7 @@ $("#search").click(function(){
         success: function(ds){
        
         var obj = jQuery.parseJSON( ds );
-       
+
          $('#wpl').empty();
 
           for(var i=0 ; i < obj.length;i++)

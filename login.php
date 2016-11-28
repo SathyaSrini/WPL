@@ -21,7 +21,13 @@ if (isset($_POST['login'])) {
 		$uid = $parts[0];
 		$_SESSION['usr_id'] = $email;
 		$_SESSION['usr_name'] = $uid;
+		$userres = mysqli_query($con, "SELECT city FROM userinfo WHERE userid = '" .$username. "'");
+	    if ($userrow = mysqli_fetch_array($userres)) 
+	    {
+			$_SESSION['city'] = $userrow['city'];		
+		}		
 		header("Location: home.html");
+		
 	} else 
 	{
 		$errormsg = "Incorrect Email or Password!!!";
