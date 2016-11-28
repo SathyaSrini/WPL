@@ -82,16 +82,17 @@ $("#wpl").on("click", "#Edit", function(){
     
     var id_clicked = this.name;
 
-    alert(id_clicked);
+    //alert(id_clicked);
+	window.location.href = "property_edit.html?"+id_clicked;
 
-    $.ajax({
+   /* $.ajax({
         type:'POST',
-        url: 'adminPage.php',
+        url: 'property_edit.html',
         data: 
         {
             clicked_id: id_clicked
         }
-    }); 
+    }); */
 
 });
 });

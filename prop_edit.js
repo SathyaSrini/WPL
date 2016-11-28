@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var operation = "";
-	$('#leftBar a').click(function(){
+	$('#links a').click(function(){
 		
 		/*if ($("#login_form").is(":hidden")){
               $("#login_form").slideDown("slow");
@@ -12,9 +12,10 @@ $(document).ready(function() {
 		//alert($(this).text());
 		//$("#aptid").prop('disabled', false);
 		operation = $(this).text().split(" ")[0];
+		$('table tr').find('input:text').val('');
 		$("#login_form").hide();
 		$("#operation").val(operation);
-		$("#submit_button").val(operation)
+		$("#submit_button").val(operation);
 		alert(operation+"*");
 		if ((operation == "Update") || (operation == "Remove")) {
 			$("#login_form").show('slow');
@@ -26,8 +27,10 @@ $(document).ready(function() {
 			$("#show_button").show('slow');
 		}
 		else {
+			
 			$("#login_form").show('slow');
 			$('table tr').show();
+			//$('table tr').find('input:text').val('');
 			$("#show_button").hide();
 			$("#show_button").click();
 		}
@@ -39,6 +42,7 @@ $(document).ready(function() {
 		var check_flag = 0;
 		var error = 0;
 	//	alert("Self triggered show");
+		operation = $("#operation").val();
 		alert(operation);
 		if(operation != "Add") {
 			if(($("#propertyid").val().length === 0) || (!regex.test($("#propertyid").val()))) {
@@ -85,9 +89,9 @@ $(document).ready(function() {
 							document.getElementById("bhk").value=result.bhk;
 							document.getElementById("bath").value=result.bath;
 							document.getElementById("price").value=result.price;
-							document.getElementById("image").value=result.image;
-							(result.isavailable == 1) ? (document.getElementById("isavailable").checked=true) : (document.getElementById("isavailable").checked=false);
-							(result.isapt == 1) ? (document.getElementById("isapt").checked=true) : (document.getElementById("isapt").checked=false);
+							//document.getElementById("image").value=result.image;
+							(result.isavailable == 1) ? (document.getElementById('isavailable').checked = "checked") : (document.getElementById("isavailable").checked = false);
+							(result.isapt == 1) ? (document.getElementById('isapt').checked = "checked") : (document.getElementById("isapt").checked = false);
 							
 						}
 					}
@@ -113,11 +117,24 @@ $(document).ready(function() {
 		if ($('#isapt').prop("checked") == true) {
 			//alert("checkbox is checked");
 			$('#aptid').prop('disabled', false);
+			$('#isapt').val("isapartment");
 		}
 		else {
 			//alert("Chec box un");
 			$('#aptid').val('');
 			$('#aptid').prop('disabled', true);
+			$('#isapt').val("random");
+		}
+		//$('#aptid').prop('disabled', function(i, v) { return !v; })
+		
+	});
+	
+	$('#isavailable').click(function(){
+		if ($('#isavailable').prop("checked") == true) {
+			$('#isavailable').val("isavailable");
+		}
+		else {
+			$('#isavailable').val("random");
 		}
 		//$('#aptid').prop('disabled', function(i, v) { return !v; })
 		

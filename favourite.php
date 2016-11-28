@@ -52,7 +52,7 @@ $state =$_GET['state'];
 $city ="Dallas";
 if($city=="")
 {
-$result=$db->prepare("SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0");
+$result=$db->prepare("SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property, wishlist WHERE property.propertyid = wishlist.propertyid and userid = '$userid' AND isdeleted = 0");
 }
 elseif($city!="")
 {

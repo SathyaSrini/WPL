@@ -60,7 +60,7 @@ while($row=$stmt->fetch())
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
-        <li><a href="favourite.php"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
         <li><a href="history.html"><span class="glyphicon glyphicon-star-empty"></span>History</a></li>
         <?php } else { ?>
         <?php } ?>
@@ -131,7 +131,7 @@ while($row=$stmt->fetch())
     </div>      
     </div>
     <div class="col-sm-10 text-left">
-    <ul class="pagination3" id="wpl"></ul>
+  <!--  <ul class="pagination3" id="wpl"></ul> -->
     </div>  
   </div>
 </div>
