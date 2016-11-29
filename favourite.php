@@ -6,84 +6,60 @@ $password="root";
 $dbname="realtor";
 $db = new PDO("mysql:dbname=$dbname;host=$host", $username, $password);
 $user_id = $_SESSION['usr_id'];
-/*if(isset($_SESSION['usr_id']))
-{
-$stmt = $db->prepare("SELECT isadmin FROM userinfo WHERE userid = (:userid)");
-$stmt->bindParam(':userid', $user_id);
-$stmt->execute();
-while($row=$stmt->fetch())
-{
-    $isadmin = $row['isadmin'];
-    $_SESSION['isadmin'] = $isadmin;
-}
-}*/
-$property_id = $_POST['clicked_id'];
-//print_r($property_id); 
-if(isset($_SESSION['usr_id']) && !empty($property_id))
-{
-  
-  //print_r($user_id);
-  $stmt = $db->prepare("INSERT IGNORE INTO wishlist (userid, propertyid) VALUES (:userid, :propertyid)");
-  $stmt->bindParam(':userid', $user_id);
-  $stmt->bindParam(':propertyid', $property_id);
-  $res = $stmt->execute();
-if ($res)
-{
-   //echo "1";
-}
-else
-{
-  //echo "0";
-}
-}
-if (!isset($_SESSION['city'])) {
-    $city= $_SESSION['city'];
-}
-else{
-    $city="";
-}
-unset($_SESSION['city']);
+$data = $_POST['items'];
+$total_price = 0;
+$dispflag = 0;
 $res_row=array();
-$hType=$_GET['hType'];
-$beds =$_GET['beds'];
-$baths =$_GET['baths'];
-$city =$_GET['city'];
-$state =$_GET['state'];
-$city ="Dallas";
-if($city=="")
+
+if(isset($_SESSION['usr_id']) && !empty($data))
 {
-$result=$db->prepare("SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property, wishlist WHERE property.propertyid = wishlist.propertyid and userid = '$userid' AND isdeleted = 0");
-}
-elseif($city!="")
-{
-   if(strcmp($city,"Any")==0)
-   {
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE city='$city' AND isavailable = 1 AND isdeleted = 0";
-   }
-   else
-   {
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
-   }
-    if($hType!=""&&$hType!=9)
-    	$sqlQuery .= " AND isapt = $hType";
-    if($beds!=""&&$beds!=9)
-    	$sqlQuery .= " AND bhk = $beds";
-    if($baths!=""&&$baths!=9)
-    	$sqlQuery .= " AND bath = $baths";
-    if($state!="")
-    	$sqlQuery .= " AND state = $state"; 
-    
-    $result=$db->prepare($sqlQuery);
+	$items = json_decode(stripslashes($_POST['items']));
+	foreach($items as $itm){ 
+//$dispflag = 1
+	$total_price += explode("$", $itm)[1]; 
+	}
+	$result = $db->prepare("select IFNULL(max(orderid), 0) from orders");
+	$result->execute();
+	$id = $result->fetchColumn();
+	$id += 1;
+	$result2 = $db->prepare("INSERT IGNORE INTO orders (orderid, userid, cost) VALUES (:orderid, :userid, :cost)");
+	$result2->bindParam(':orderid', $id);
+	$result2->bindParam(':userid', $user_id);
+	$result2->bindParam(':cost', $total_price);
+	//$result2 = $db->prepare("insert ignore into orders (orderid, userid, cost)values(".$id.",".$user_id.",".$total_price.")");
+	$resss = $result2->execute();
 	
+	
+foreach($items as $itm){  
+  //print_r($user_id);
+  $stmt = $db->prepare("INSERT IGNORE INTO orderitems (orderid, propertyid, sellingprice) VALUES (:orderid, :propertyid, :sellingprice)");
+  $stmt->bindParam(':orderid', $id);
+  $stmt->bindParam(':propertyid', explode("$", $itm)[0]);
+  $stmt->bindParam(':sellingprice', explode("$", $itm)[1]);
+  $res = $stmt->execute();
+  $stmt2 = $db->prepare("update property set isavailable = 0 where propertyid = :propertyid");
+  $stmt2->bindParam(':propertyid', explode("$", $itm)[0]);
+  $res = $stmt2->execute();
+  ///$res->lastInsertId();
+  
 }
-else
-{
+$db = NULL;
+
 }
-$result->execute();
+
+else {
+	$result=$db->prepare("SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property, wishlist WHERE wishlist.propertyid = property.propertyid and isavailable = 1 AND isdeleted = 0 and wishlist.userid = '$user_id'");
+	$result->execute();
+	//$result=$db->prepare($sqlQuery);
 while($row=$result->fetch())
 {
+
   $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price']);
   $res_row[]=$res;
 }
+
+$db = NULL;
 echo json_encode($res_row);
+}
+
 ?>
