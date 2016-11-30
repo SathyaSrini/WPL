@@ -26,10 +26,8 @@ while($row=$stmt->fetch())
 }*/
 $property_id = $_POST['clicked_id'];
 //print_r($property_id); 
-
 if(isset($_SESSION['usr_id']) && !empty($property_id))
-{
-  
+{ 
   //print_r($user_id);
   $stmt = $db->prepare("INSERT IGNORE INTO wishlist (userid, propertyid) VALUES (:userid, :propertyid)");
   $stmt->bindParam(':userid', $user_id);
@@ -46,56 +44,74 @@ else
 
 }
 
-if (!isset($_SESSION['city'])) {
+if (isset($_SESSION['city'])) {
     $city= $_SESSION['city'];
 }
 else{
     $city="";
 }
-unset($_SESSION['city']);
-
+//unset($_SESSION['city']);
 
 $res_row=array();
-
 $hType=$_GET['hType'];
 $beds =$_GET['beds'];
-$baths =$_GET['baths'];
-$city =$_GET['city'];
+$bath =$_GET['bath'];
+$citysearch = $_GET['city'];
 $state =$_GET['state'];
-$city ="Dallas";
 
-if($city=="")
+//If user is not logged in 
+if(!isset($_SESSION['usr_id']))
 {
-$result=$db->prepare("SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0");
-}
-elseif($city!="")
-{
-
-   if(strcmp($city,"Any")==0)
-   {
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE city='$city' AND isavailable = 1 AND isdeleted = 0";
-   }
-   else
-   {
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
-   }
-
-
+	$sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
+    if((strcmp($citysearch,"")!=0)&&(strcmp($citysearch,"Any")!=0))
+	   $sqlQuery .= "  AND city = '$citysearch'";
+  
     if($hType!=""&&$hType!=9)
     	$sqlQuery .= " AND isapt = $hType";
     if($beds!=""&&$beds!=9)
     	$sqlQuery .= " AND bhk = $beds";
-    if($baths!=""&&$baths!=9)
-    	$sqlQuery .= " AND bath = $baths";
+    if($bath!=""&&$bath!=9)
+    	$sqlQuery .= " AND bath = $bath";
     if($state!="")
-    	$sqlQuery .= " AND state = $state";     
-
+    	$sqlQuery .= " AND state = $state";   	
+    
     $result=$db->prepare($sqlQuery);
-	
 }
+
 else
 {
+	/*
+if(strcmp($city,"")==0)
+{
+$result=$db->prepare("SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0");
+}*/
+
+if(is_null($citysearch)&&$_SESSION['isadmin']==0)
+{	
+    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE city='$city' AND isavailable = 1 AND isdeleted = 0";
+	$result=$db->prepare($sqlQuery);
 }
+else 
+{
+    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
+    
+	if((strcmp($citysearch,"")!=0)&&(strcmp($citysearch,"Any")!=0))
+	   $sqlQuery .= "  AND city = '$citysearch'";
+   
+    if($hType!=""&&$hType!=9)
+    	$sqlQuery .= " AND isapt = $hType";
+    if($beds!=""&&$beds!=9)
+    	$sqlQuery .= " AND bhk = $beds";
+    if($bath!=""&&$bath!=9)
+    	$sqlQuery .= " AND bath = $bath";
+    if($state!="")
+    	$sqlQuery .= " AND state = $state";   	
+    
+    $result=$db->prepare($sqlQuery);
+}
+}
+
+//echo json_encode($sqlQuery);
 $result->execute();
 while($row=$result->fetch())
 {

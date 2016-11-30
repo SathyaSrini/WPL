@@ -2,7 +2,7 @@
 //session_start();
 //$username = $_POST['username'];
 $operation = $_POST['operation'];
-$id = 2;
+$id = $_POST['propertyid'];
 $isapt = (strcmp($_POST['isapt'], "isapartment") == 0) ? 1 : 0;
 $aptid = $_POST['aptid'];
 $street = $_POST['street'];
@@ -52,8 +52,8 @@ $result = mysqli_query($con,$query);
 
 mysqli_close($con);
 
-echo $query;
-//header('Location: property_edit.html');
+//echo $query;
+header('Location: property_edit.html');
 
 
 ?>
