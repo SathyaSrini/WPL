@@ -138,6 +138,7 @@ while($row=$stmt->fetch())
   </div>
 </div>
 <footer class="container-fluid text-center">
+<input type="hidden" id="userPresent" value="<?php echo isset($_SESSION['usr_id']); ?>"/>
 <input type="hidden" id="hdnSession" value="<?php echo $_SESSION['isadmin']; ?>"/>
 <p>Copyright &copy;Realtor.com. All rights reserved.</p>
 </footer>
