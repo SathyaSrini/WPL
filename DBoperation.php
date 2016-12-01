@@ -1,10 +1,10 @@
 <?php
-//session_start();
+session_start();
 //$username = $_POST['username'];
 $operation = $_POST['operation'];
 $id = $_POST['propertyid'];
 $isapt = (strcmp($_POST['isapt'], "isapartment") == 0) ? 1 : 0;
-$aptid = $_POST['aptid'];
+$aptid = (empty($_POST['aptid'])) ? 0 : $_POST['aptid'];
 $street = $_POST['street'];
 $city = $_POST['city'];
 $state = $_POST['state'];
@@ -15,8 +15,8 @@ $bath = $_POST['bath'];
 $isavailable = (strcmp($_POST['isavailable'], "isavailable") == 0) ? 1 : 0;
 $isdeleted = 0;
 $price = $_POST['price'];
-$image = $id.".jpg";
-
+$image = $_POST['hiddenid'].".jpg";
+$query = "";
 
 
 //header('Location: property_edit.html');
@@ -25,16 +25,16 @@ $image = $id.".jpg";
 //	header('Location: login.html');
 //	exit();
 //}
-echo "HIiiiiiiiiiiiiiiiii ". $street;
-echo "<br>ksdnfkjn  ".$aptid;
-echo "<br>OPERATION: ".$operation;
+//echo "HIiiiiiiiiiiiiiiiii ". $isapt;
+//echo "<br>ksdnfkjn  ".$isavailable;
+//echo "<br>OPERATION: ".$operation;
 $con = mysqli_connect("localhost","root","root","realtor","8889");
 if(mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
 if(strcmp($operation, "Add") == 0) {
-	$query = "insert into realtor.property values(2,".$isapt.",".$aptid.",'".$street."','".$city."','".$state."',".$zip.",".$sqft.",".$bhk.",".$bath.",".$isavailable.",0,".$price.",'".$image."')";
+	$query = "insert into realtor.property values(".$_POST['hiddenid'].",".$isapt.",".$aptid.",'".$street."','".$city."','".$state."',".$zip.",".$sqft.",".$bhk.",".$bath.",".$isavailable.",0,".$price.",'".$image."')";
 	
 }
 else if (strcmp($operation, "Update") == 0) {
@@ -45,15 +45,26 @@ else if (strcmp($operation, "Update") == 0) {
 				where propertyid = ".$id.";";
 }
 else {
-	$query = "update property set isdeleted = 1 where propertyid = '$id'";
+	$query = "update property set isdeleted = 1, isavailable = 0 where propertyid = '$id'";
+}
+//echo $query;
+$result = mysqli_query($con,$query);
+//echo "<br>";
+mysqli_close($con);
+if($result) {
+	echo "<script language='javascript'>
+		window.alert('Successful!!'); window.location.href = 'property_edit.html'; </script>";
+}
+else {
+	
+	echo "<script language='javascript'>
+		window.alert('Failed!! Please enter valid values'); window.location.href = 'property_edit.html'; </script>";
 }
 
-$result = mysqli_query($con,$query);
 
-mysqli_close($con);
 
 //echo $query;
-header('Location: property_edit.html');
+//header('Location: property_edit.html');
 
 
 ?>

@@ -9,9 +9,19 @@ $.ajax({url: "favourite.php",success: function(ds){
       localStorage.setItem('Allitems', ds);
 	  
 	  if(obj.length != 0) {
+		  //var count = 0;
 		for(var i=0 ; i < obj.length;i++)
 		{
-			$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><input type="checkbox" name="ato" value="'+obj[i].cn+'$'+obj[i].p+'" /> Add to Order </div></li>');
+			//if((count % 3) == 0) {
+			//	$('#wpl').last().append('<br>');
+			//}
+			
+			if(obj[i].isavai == 1) {
+				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><input type="checkbox" name="ato" value="'+obj[i].cn+'$'+obj[i].p+'" /> Add to Order </div></li>');
+			}
+			else{
+				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><label for="prop" style="color:red; font-size : 20px; font-weight:bold; text-align:center">Not Available</label></li>');
+			}
 		//$("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"1"});
       
 		}
@@ -19,7 +29,7 @@ $.ajax({url: "favourite.php",success: function(ds){
 	  }
 	  
 	  else {
-		  $('#wpl').last().append('<p>NO items in wishlist</p>');
+		  $('#wpl').last().append('<center><p style="color:red; font-size : 30px; font-weight:bold">No items in wishlist</p></center>');
 	  }
 }
 
@@ -58,6 +68,7 @@ $("#wpl").on("click", "#checkout", function(){
 				url: "favourite.php",
 				data: {items : itemlist}
 			});
+		window.alert("CheckOut Successful!!");
 		window.location.href = "favourite.html";
 	
 });

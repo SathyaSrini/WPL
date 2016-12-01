@@ -107,19 +107,20 @@ else {
 				<form action="DBoperation.php" method="post" name="form1" id="form1">
 				<table>
 					<tr><td>ID: </td><td><input type="text" name="propertyid" id="propertyid" required></td><td><input type="button"  value="SHOW" id="show_button"/></td></tr>
-					<tr><td>Apartment?</td><td> <input type="checkbox" name="isapt" value="random" id="isapt"></td></tr>
-					<tr><td>Apt #: </td><td><input type="text" name="aptid" id="aptid"/></td></tr>
-					<tr><td>Street: </td><td><input type="text" name="street" id="street"/></td></tr>
-					<tr><td>City: </td><td><input type="text" name="city" id="city"/></td></tr>
-					<tr><td>State: </td><td><input type="text" name="state" id="state"/></td></tr>
-					<tr><td>Zip: </td><td><input type="text" name="zip" id="zip"/></td></tr>
-					<tr><td>SQ ft: </td><td><input type="text" name="sqft" id="sqft"/></td></tr>
-					<tr><td>No. BHK: </td><td><input type="text" name="bhk" id="bhk"/></td></tr>
-					<tr><td>No. Bath: </td><td><input type="text" name="bath" id="bath"/></td></tr>
+					<tr><td>Apartment?</td><td> <input type="checkbox" name="isapt" value="isapartment" id="isapt" checked></td></tr>
+					<tr><td>Apt #: </td><td><input type="text" name="aptid" id="aptid" required/></td></tr>
+					<tr><td>Street: </td><td><input type="text" name="street" id="street" required/></td></tr>
+					<tr><td>City: </td><td><input type="text" name="city" id="city" required/></td></tr>
+					<tr><td>State: </td><td><input type="text" name="state" id="state" required/></td></tr>
+					<tr><td>Zip: </td><td><input type="text" name="zip" id="zip" required/></td></tr>
+					<tr><td>SQ ft: </td><td><input type="text" name="sqft" id="sqft" required/></td></tr>
+					<tr><td>No. BHK: </td><td><input type="text" name="bhk" id="bhk" required/></td></tr>
+					<tr><td>No. Bath: </td><td><input type="text" name="bath" id="bath" required/></td></tr>
 					<tr><td>Available?</td><td> <input type="checkbox" name="isavailable" id="isavailable" value="random"></td></tr>
-					<tr><td>Price: </td><td><input type="text" name="price" id="price"/></td></tr>
-					<!--<tr><td>Image: </td><td><input type="text" name="image" id="image"/></td></tr>-->
-					<tr><td><input type="submit"  value="" id="submit_button"/></td><td><input type="text" name="operation" id="operation" hidden></td></tr>
+					<tr><td>Price: </td><td><input type="text" name="price" id="price" required/></td></tr>
+					<!--<tr><td>Image: </td><td><input type="text" name="hiddenid" id="hiddenid" hidden></td></tr>-->
+					<tr><td><input type="submit"  value="" id="submit_button"/></td><td><input type="text" name="operation" id="operation" hidden>
+						<input type="hidden" name="hiddenid" id="hiddenid"/></td></tr>
 				</table>
 				</form>
 	</div>

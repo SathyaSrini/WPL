@@ -19,7 +19,7 @@ $result = mysqli_query($con,$query);
 
 if($result->num_rows == 0) 
 {
-	echo "Error: No records available for the given ID <br> you might be tryng to edit a deleted property please use <u>Remove Property</u> page to view deleted properties.";
+	echo "Error: No records available for the given ID. You might be trying to edit a deleted property!";
 }
 else {
 		$row = mysqli_fetch_array($result);

@@ -16,7 +16,7 @@ $(document).ready(function() {
 		$("#login_form").hide();
 		$("#operation").val(operation);
 		$("#submit_button").val(operation);
-		alert(operation+"*");
+		//alert(operation+"*");
 		if ((operation == "Update") || (operation == "Remove")) {
 			$("#login_form").show('slow');
 			$('#propertyid').prop('disabled', false);
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		var error = 0;
 	//	alert("Self triggered show");
 		operation = $("#operation").val();
-		alert(operation);
+		//alert(operation);
 		if(operation != "Add") {
 			if(($("#propertyid").val().length === 0) || (!regex.test($("#propertyid").val()))) {
 				alert("Please enter a valid ID");
@@ -75,6 +75,7 @@ $(document).ready(function() {
 					else {
 						if(operation == "Add") {
 							document.getElementById("propertyid").value=xmlhttp.responseText;
+							document.getElementById("hiddenid").value=xmlhttp.responseText;
 							$('#propertyid').prop('disabled', true);
 						}
 						else {
@@ -89,7 +90,11 @@ $(document).ready(function() {
 							document.getElementById("bhk").value=result.bhk;
 							document.getElementById("bath").value=result.bath;
 							document.getElementById("price").value=result.price;
+							document.getElementById("hiddenid").value=document.getElementById("propertyid").value;
 							//document.getElementById("image").value=result.image;
+							if(result.isavailable == 0) {
+								$('#aptid').prop('disabled', true);
+							}
 							(result.isavailable == 1) ? (document.getElementById('isavailable').checked = "checked") : (document.getElementById("isavailable").checked = false);
 							(result.isapt == 1) ? (document.getElementById('isapt').checked = "checked") : (document.getElementById("isapt").checked = false);
 							
