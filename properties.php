@@ -11,6 +11,7 @@ $db = new PDO("mysql:dbname=$dbname;host=$host", $username, $password);
 
 $user_id = $_SESSION['usr_id'];
 
+
 /*if(isset($_SESSION['usr_id']))
 {
 
@@ -59,10 +60,13 @@ $bath =$_GET['bath'];
 $citysearch = $_GET['city'];
 $state =$_GET['state'];
 
+// SQL COMMAND USED TO SET WISHLIST ITEMS as SELECTED: 
+//SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image,IF(wishlist.propertyid IS NULL, FALSE, TRUE) as is_present FROM property LEFT JOIN wishlist ON (property.propertyId = wishlist.propertyid) WHERE isavailable = 1 AND isdeleted = 0 ;
+//
 //If user is not logged in 
 if(!isset($_SESSION['usr_id']))
 {
-	$sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
+	$sqlQuery = "SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image,IF(wishlist.propertyid IS NULL, FALSE, TRUE) as is_present FROM property LEFT JOIN wishlist ON (property.propertyId = wishlist.propertyid) WHERE isavailable = 1 AND isdeleted = 0";
     if((strcmp($citysearch,"")!=0)&&(strcmp($citysearch,"Any")!=0))
 	   $sqlQuery .= "  AND city = '$citysearch'";
   
@@ -88,12 +92,12 @@ $result=$db->prepare("SELECT propertyId,isApt,aptno,street,city,state,zipcode,sq
 
 if(is_null($citysearch)&&$_SESSION['isadmin']==0)
 {	
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE city='$city' AND isavailable = 1 AND isdeleted = 0";
+    $sqlQuery = "SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image,IF(wishlist.propertyid IS NULL, FALSE, TRUE) as is_present FROM property LEFT JOIN wishlist ON (property.propertyId = wishlist.propertyid) WHERE city='$city' AND isavailable = 1 AND isdeleted = 0";
 	$result=$db->prepare($sqlQuery);
 }
 else 
 {
-    $sqlQuery = "SELECT propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property WHERE isavailable = 1 AND isdeleted = 0";
+    $sqlQuery = "SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image,IF(wishlist.propertyid IS NULL, FALSE, TRUE) as is_present FROM property LEFT JOIN wishlist ON (property.propertyId = wishlist.propertyid) WHERE isavailable = 1 AND isdeleted = 0";
     
 	if((strcmp($citysearch,"")!=0)&&(strcmp($citysearch,"Any")!=0))
 	   $sqlQuery .= "  AND city = '$citysearch'";
@@ -116,7 +120,7 @@ $result->execute();
 while($row=$result->fetch())
 {
 
-  $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price']);
+  $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price'],"w"=>$row['is_present']);
   $res_row[]=$res;
 }
 
