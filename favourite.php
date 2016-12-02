@@ -48,13 +48,13 @@ $db = NULL;
 }
 
 else {
-	$result=$db->prepare("SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image FROM property, wishlist WHERE wishlist.propertyid = property.propertyid and isavailable = 1 AND isdeleted = 0 and wishlist.userid = '$user_id'");
+	$result=$db->prepare("SELECT property.propertyId,isApt,aptno,street,city,state,zipcode,sqft,bhk,bath,price,image,isavailable,isdeleted FROM property, wishlist WHERE wishlist.propertyid = property.propertyid and wishlist.userid = '$user_id' and wishlist.propertyid not in (select orderitems.propertyid from orderitems, orders where orders.orderid = orderitems.orderid and orders.userid = '$user_id')order by isavailable desc, isdeleted asc");
 	$result->execute();
 	//$result=$db->prepare($sqlQuery);
 while($row=$result->fetch())
 {
 
-  $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price']);
+  $res=array("cn"=>$row['propertyId'],"a"=>$row['aptno'],"st"=>$row['street'],"c"=>$row['city'],"s"=>$row['state'],"z"=>$row['zipcode'],"sq"=>$row['sqft'],"b"=>$row['bath'],"bh"=>$row['bhk'],"i"=>$row['image'],"p"=>$row['price'],"isavai"=>$row['isavailable'],"isdele"=>$row['isdeleted']);
   $res_row[]=$res;
 }
 
