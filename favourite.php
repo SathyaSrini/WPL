@@ -10,6 +10,18 @@ $data = $_POST['items'];
 $total_price = 0;
 $dispflag = 0;
 $res_row=array();
+$wlremove = $_POST['wlremove'];
+
+if(isset($_SESSION['usr_id']) && !empty($wlremove)){
+	$res3 = $db->prepare("delete from wishlist where userid = :userid and propertyid = :propertyid");
+	$res3->bindParam(':propertyid', $_POST['clicked_id']);
+	$res3->bindParam(':userid', $user_id);
+///	$res3->bindParam(':cost', $total_price);
+	//$result2 = $db->prepare("insert ignore into orders (orderid, userid, cost)values(".$id.",".$user_id.",".$total_price.")");
+	$op = $res3->execute();
+	
+}
+
 
 if(isset($_SESSION['usr_id']) && !empty($data))
 {

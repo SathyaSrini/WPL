@@ -37,6 +37,15 @@ $(document).ready(function() {
 		
 		
 	});
+	
+	$("#submit_button").click(function(){
+		if(operation == "Remove") {
+			if(!confirm("Confirm Delete?")){
+				return false;
+			}
+		}
+	});
+	
 	$("#show_button").click(function(){
 		var regex = /^[0-9]+$/i;
 		var check_flag = 0;
