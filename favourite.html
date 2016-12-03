@@ -52,14 +52,14 @@ while($row=$stmt->fetch())
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">Home</a></li>       
+        <li><a href="home.html">Home</a></li>       
         <li><a href="properties.html">Properties</a></li>        
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
-        <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
-        <li><a href="history.html"><span class="glyphicon glyphicon-star-empty"></span>History</a></li>
+        <li class="active"><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
+        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;History</a></li>
         <?php } else { ?>
         <?php } ?>
        <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>

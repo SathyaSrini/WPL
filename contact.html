@@ -28,18 +28,18 @@ include_once 'dbconnect.php';
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-      <li class="active"><a href="home.html">Home</a></li>      
+      <li><a href="home.html">Home</a></li>      
       <li><a href="properties.html">Properties</a></li>   
     <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['isadmin']) && $_SESSION['isadmin']==1) { ?>
         <li><a href="property_edit.html">Admin</a></li>
     <?php } else { ?>
         <?php } ?>
-      <li><a href="contact.html">Contact</a></li>
+      <li class="active"><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
         <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
-        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>History</a></li>
+        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;History</a></li>
         <?php } else { ?>
         <?php } ?>
        <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>
@@ -73,9 +73,9 @@ include_once 'dbconnect.php';
                     <div class="panel-body text-center">
                         <h4>Address</h4>
                         <div>
-                        7650 Mccallum Blvd<br />
+                        No 6 Dallas Main Rd, Dallas Cross St<br />
                         Dallas,TX<br />                        
-                        mxk152030@utdallas.edu<br />
+                        contact@realtor.com<br />
                         </div>
                         <hr />                       
                     </div>
