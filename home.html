@@ -59,7 +59,7 @@ while($row=$stmt->fetch())
       <ul class="nav navbar-nav navbar-right">
 	  <?php if(isset($_SESSION['usr_id']) and $_SESSION['isadmin']==0) { ?>
         <li><a href="favourite.html"><span class="glyphicon glyphicon-star-empty"></span> Favourites</a></li>
-        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>History</a></li>
+        <li><a href="history.html"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;History</a></li>
         <?php } else { ?>
         <?php } ?>
        <?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['usr_id'])) { ?>
