@@ -48,7 +48,7 @@ while($row=$stmt->fetch())
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">Home</a></li>        
+        <li><a href="home.html">Home</a></li>        
         <li><a href="properties.html">Properties</a></li>  
 		<?php if(isset($_SESSION['usr_id']) && !empty($_SESSION['isadmin']) && $_SESSION['isadmin']==1) { ?>
         <li><a href="property_edit.html">Admin</a></li>

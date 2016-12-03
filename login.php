@@ -60,7 +60,7 @@ if (isset($_POST['login'])) {
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-         <li class="active"><a href="home.html">Home</a></li>      
+         <li><a href="home.html">Home</a></li>      
         <li><a href="properties.html">Properties</a></li>		
         <li><a href="contact.html">Contact</a></li>
       </ul>
