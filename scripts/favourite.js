@@ -17,10 +17,10 @@ $.ajax({url: "favourite.php",success: function(ds){
 			//}
 			
 			if(obj[i].isavai == 1) {
-				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><input type="checkbox" name="ato" value="'+obj[i].cn+'$'+obj[i].p+'" /> Add to Order </div></li>');
+				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><input type="checkbox" name="ato" id="'+obj[i].cn+'" value="'+obj[i].cn+'$'+obj[i].p+'" /> Add to Order<div class="pull-right"><button id="RemoveFromWL" name ="'+obj[i].cn+'"">Remove From WishList</button></div></div></li>');
 			}
 			else{
-				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><label for="prop" style="color:red; font-size : 20px; font-weight:bold; text-align:center">Not Available</label></li>');
+				$('#wpl').last().append('<li style="list-style: none;"><div class="thumbnail" style="max-width:30%;"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><label for="prop" style="color:red; font-size : 20px; font-weight:bold; text-align:center">Not Available</label><div class="pull-right"><button id="RemoveFromWL" name ="'+obj[i].cn+'"">Remove From WishList</button></div></div></li>');
 			}
 		//$("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"1"});
       
@@ -35,6 +35,31 @@ $.ajax({url: "favourite.php",success: function(ds){
 
 });
 
+$("#wpl").on("click", "#RemoveFromWL", function(){
+    if(!confirm("Confirm Delete?")){
+		return false;
+	}
+    $(this).text("Removed From WishList");
+    $(this).css('color','red');
+	$(this).prop("disabled",true);
+    var id_clicked = this.name;
+	$('#'+id_clicked).prop("disabled", true);
+	$('#'+id_clicked).removeAttr('checked');
+/*$('#contained input:checkbox').each(function() {
+	$(this).removeAttr('checked');
+	$(this).prop("disabled", true);
+});*/
+    $.ajax({
+        type:'POST',
+        url: 'favourite.php',
+        data: 
+        {
+            clicked_id: id_clicked,
+			wlremove: 1
+        }
+    });
+
+});
 
 $("#wpl").on("click", "#checkout", function(){
 	var arr = [];
