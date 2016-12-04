@@ -77,7 +77,7 @@ if(!isset($_SESSION['usr_id']))
     if($bath!=""&&$bath!=9)
     	$sqlQuery .= " AND bath = $bath";
     if($state!="")
-    	$sqlQuery .= " AND state = $state";   	
+    	$sqlQuery .= " AND state = '$state'";   	
     
     $result=$db->prepare($sqlQuery);
 }
@@ -109,7 +109,7 @@ else
     if($bath!=""&&$bath!=9)
     	$sqlQuery .= " AND bath = $bath";
     if($state!="")
-    	$sqlQuery .= " AND state = $state";   	
+    	$sqlQuery .= " AND state = '$state'";   	
     
     $result=$db->prepare($sqlQuery);
 }
