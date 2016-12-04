@@ -8,7 +8,7 @@ $.ajax({url: "history.php",success: function(ds){
       localStorage.setItem('Allitems', ds);
       if(obj.length==0)
       {
-         $('#wpl').last().append('<center><p style="color:red; font-size : 30px; font-weight:bold">No items in wishlist</p></center>');
+         $('#wpl').last().append('<center><p style="color:red; font-size : 30px; font-weight:bold">No items in purchase history</p></center>');
       }
       else
       {
