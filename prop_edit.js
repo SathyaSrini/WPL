@@ -101,7 +101,7 @@ $(document).ready(function() {
 							document.getElementById("price").value=result.price;
 							document.getElementById("hiddenid").value=document.getElementById("propertyid").value;
 							//document.getElementById("image").value=result.image;
-							if(result.isavailable == 0) {
+							if(result.isapt == 0) {
 								$('#aptid').prop('disabled', true);
 							}
 							(result.isavailable == 1) ? (document.getElementById('isavailable').checked = "checked") : (document.getElementById("isavailable").checked = false);
