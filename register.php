@@ -126,7 +126,7 @@ if (isset($_POST['signup']))
       <ul class="nav navbar-nav">
          <li><a href="home.html">Home</a></li>      
         <li><a href="properties.html">Properties</a></li>		
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
   </div>

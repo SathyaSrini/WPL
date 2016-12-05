@@ -21,26 +21,26 @@ $.ajax({url: "properties.php",success: function(ds){
       if(inWl==0)
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button id="AddCart" name ="'+obj[i].cn+'"">Add To WishList</button></div></div></li>');
-      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
       }
       else
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button style="color: green;" id="AddCart" name ="'+obj[i].cn+'"" disabled>Added To WishList</button></div></div></li>');
-      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"}); 
+      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"}); 
       }
     }
       else
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button id="Edit" name ="'+obj[i].cn+'"">Edit</button></div></div></li>');
      
-	  $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+	  $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
 	  } 
 	  }
 	  else
 	  {
 		
 		$('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div></div></li>');
-        $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+        $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
 
 		
 	  }
@@ -80,26 +80,26 @@ $("#search").click(function(){
       if(inWl==0)
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button id="AddCart" name ="'+obj[i].cn+'"">Add To WishList</button></div></div></li>');
-      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
       }
       else
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button style="color: green;" id="AddCart" name ="'+obj[i].cn+'"" disabled>Added To WishList</button></div></div></li>');
-      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"}); 
+      $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"}); 
       }
     }
       else
       {
       $('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div><div class="ratings"><button id="Edit" name ="'+obj[i].cn+'"">Edit</button></div></div></li>');
      
-	  $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+	  $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
 	  } 
 	  }
 	  else
 	  {
 		
 		$('#wpl').last().append('<li><div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src= "img/'+ obj[i].i+'" alt="'+obj[i].cn+'"style="width:300px;height:180px;"><div class="caption"><h4 class="pull-right">'+obj[i].p+'$</h4><h4>'+obj[i].st+'</h4><p>'+obj[i].c+','+obj[i].s+','+obj[i].z+'</p><p>Area: '+obj[i].sq+' sqft</p><p>Bed: '+obj[i].bh+'  Bath: '+obj[i].b+'</p></div></div></li>');
-        $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"4"});
+        $("ul.pagination3").quickPagination({pagerLocation:"bottom",pageSize:"3"});
 
 		
 	  }
